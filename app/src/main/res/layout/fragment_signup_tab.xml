@@ -19,15 +19,17 @@
             android:padding="20dp">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="200dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal"
                 android:src="@drawable/signup"/>
             <EditText
                 android:layout_width="300dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:id="@+id/signup_email"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="Email"
                 android:drawableLeft="@drawable/ic_mail"
@@ -39,7 +41,7 @@
                 android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:id="@+id/signup_password"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="password"
                 android:drawableLeft="@drawable/ic_password"
@@ -51,7 +53,7 @@
                 android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:id="@+id/signup_confirm"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="Confirm password"
                 android:drawableLeft="@drawable/ic_password"
@@ -62,7 +64,7 @@
                 android:layout_width="300dp"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:id="@+id/signup_button"
                 android:textSize="18sp"
                 android:text="Signup"
