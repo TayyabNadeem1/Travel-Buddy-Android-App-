@@ -9,4 +9,7 @@
     <corners
         android:radius="40dp" />
 
+    <stroke
+
+        />
 </shape>
