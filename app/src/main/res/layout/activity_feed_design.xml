@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/test7"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -13,120 +12,104 @@
         android:layout_margin="20dp"
         app:cardCornerRadius="50dp">
 
-        <!-- Linear layout for holding the background image and shadow overlay -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:alpha="0.95">
+            android:orientation="vertical">
 
-            <!-- Background image with shadow overlay -->
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="top">
+
+                <!-- User Profile Image -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    app:cardCornerRadius="28dp"
+                    app:cardElevation="8dp">
+                    <ImageView
+                        android:id="@+id/ivPFP"
+                        android:layout_width="match_parent"
+                        android:src="@drawable/test_image"
+                        android:layout_height="150dp"
+                        android:scaleType="centerCrop"
+                         />
+                </androidx.cardview.widget.CardView>
+
+                <!-- User Name and Bio -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tvName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Name"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="25sp"/>
+                    <TextView
+                        android:id="@+id/tvBio"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="150dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:layout_height="wrap_content"
+                        android:text="I enjoy life as I seem to have forgotten it. It seems meaningless yet so beautiful"
+                        android:textSize="13sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Source and Destination Information -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/test_image2"
-                android:orientation="vertical">
-
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_gravity="bottom">
+                <!-- Source Information -->
                 <LinearLayout
-                    android:background="@drawable/top_shadow"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="top">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="20dp"
-                        app:cardCornerRadius="28dp"
-                        app:cardElevation="8dp">
-                        <ImageView
-
-                            android:layout_width="match_parent"
-                            android:layout_height="150dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/test_image" />
-                    </androidx.cardview.widget.CardView>
-
-                    <LinearLayout
+                    android:layout_marginRight="130dp">
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_location"/>
+                    <TextView
+                        android:id="@+id/tvSource"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Name"
-                            android:textColor="@color/white"
-                            android:textStyle="bold"
-                            android:textSize="25sp"/>
-                        <TextView
-                            android:layout_marginTop="20dp"
-                            android:layout_width="150dp"
-                            android:textStyle="bold"
-                            android:textColor="@color/white"
-                            android:layout_height="wrap_content"
-                            android:text="I enjoy life as i seem to have forgotten it. it seems meaningless yet so beautiful"
-                            android:textSize="13sp"/>
-
-                    </LinearLayout>
-
+                        android:text="Source"
+                        android:layout_margin="5dp"
+                        android:textColor="@color/black"
+                        android:padding="2dp" />
                 </LinearLayout>
+                <!-- Destination Information -->
                 <LinearLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:layout_gravity="bottom">
-                    <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_location"/>
+                    <TextView
+                        android:id="@+id/tvDestination"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:cardCornerRadius="10dp"
-                        app:cardBackgroundColor="#424040"
-                        android:layout_marginRight="20dp"
-                        >
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="#hello"
-                            android:layout_margin="5dp"
-                            android:padding="2dp"
-
-                            android:textColor="@color/white"/>
-                    </androidx.cardview.widget.CardView>
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="10dp"
-                        app:cardBackgroundColor="#424040"
-                        android:layout_marginRight="20dp"
-                        >
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="#hello"
-                            android:layout_margin="5dp"
-                            android:padding="2dp"
-
-                            android:textColor="@color/white"/>
-                    </androidx.cardview.widget.CardView>
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="10dp"
-                        app:cardBackgroundColor="#424040"
-                        >
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="#hello"
-                            android:layout_margin="5dp"
-                            android:padding="2dp"
-
-                            android:textColor="@color/white"/>
-                    </androidx.cardview.widget.CardView>
+                        android:text="Destination"
+                        android:layout_margin="5dp"
+                        android:textColor="@color/black"
+                        android:padding="2dp" />
                 </LinearLayout>
-
             </LinearLayout>
 
         </LinearLayout>

@@ -54,7 +54,7 @@
                 android:layout_height="70dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:id="@+id/signup_button"
+                android:id="@+id/btnLogin"
                 android:textSize="18sp"
                 android:text="Login"
                 app:cornerRadius="30dp"/>
