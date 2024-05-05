@@ -54,6 +54,7 @@ public class FeedDisplay extends AppCompatActivity {
                         String source = String.valueOf(snapshot.child("Source").getValue());
                         String bio = String.valueOf(snapshot.child("Bio").getValue());
                         String destination = String.valueOf(snapshot.child("Destination").getValue());
+                        //String pfp = String.valueOf(snapshot.child("pfp").getValue());
                         User user = new User(name, source, destination, bio);
                         users.add(user);
                     }
