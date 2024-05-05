@@ -34,7 +34,7 @@
                     <ImageView
                         android:id="@+id/ivPFP"
                         android:layout_width="match_parent"
-                        android:src="@drawable/test_image"
+
                         android:layout_height="150dp"
                         android:scaleType="centerCrop"
                          />
