@@ -1,7 +1,9 @@
 package com.example.travel_buddy;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
@@ -22,12 +24,11 @@ public class FeedDisplay extends AppCompatActivity {
 
     RecyclerView rvFeed;
     LinearLayoutManager manager;
-    ArrayList<User> user;
+    ArrayList<User> users;
     FeedAdapter adapter;
     FloatingActionButton fabDelete, fabAdd;
     int userid;
 
-    ArrayList<User>users;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,25 +44,34 @@ public class FeedDisplay extends AppCompatActivity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
+
         database.getReference().child("Post").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
-                    // Handle error
+
                 } else {
                     for (DataSnapshot snapshot : task.getResult().getChildren()) {
                         String name = String.valueOf(snapshot.child("Name").getValue());
                         String source = String.valueOf(snapshot.child("Source").getValue());
                         String bio = String.valueOf(snapshot.child("Bio").getValue());
                         String destination = String.valueOf(snapshot.child("Destination").getValue());
-                        //String pfp = String.valueOf(snapshot.child("pfp").getValue());
-                        User user = new User(name, source, destination, bio);
+                        String encodedImage = String.valueOf(snapshot.child("Profile Picture").getValue());
+
+
+                        FeedAdapter feedAdapter = new FeedAdapter(new ArrayList<>());
+                        Bitmap decodedImage = feedAdapter.getUserImage(encodedImage);
+
+                        User user = new User(name, source, destination, bio, decodedImage);
+
                         users.add(user);
                     }
-                    adapter.notifyDataSetChanged(); // Notify the adapter of data changes
+                    adapter.notifyDataSetChanged();
                 }
             }
         });
+
+
 
         adapter = new FeedAdapter(users);
         rvFeed.setAdapter(adapter);
@@ -75,6 +85,4 @@ public class FeedDisplay extends AppCompatActivity {
             }
         });
     }
-
-
 }

@@ -1,5 +1,7 @@
 package com.example.travel_buddy;
 
+import android.graphics.Bitmap;
+
 public class User {
 
 
@@ -8,20 +10,28 @@ public class User {
     String Destination;
     String Bio;
 
+    public Bitmap getPfp() {
+        return pfp;
+    }
 
+    public void setPfp(Bitmap pfp) {
+        this.pfp = pfp;
+    }
+
+    private Bitmap pfp; // Bitmap for the profile image
 
 
     public User() {
     }
 
-    public User(String name, String source, String destination, String bio) {
 
+
+    public User(String name, String source, String destination, String bio, Bitmap profileImage) {
         this.Name = name;
-
         this.Source = source;
         this.Destination = destination;
-
         this.Bio = bio;
+        this.pfp = profileImage;
     }
 
     public String getBio() {
