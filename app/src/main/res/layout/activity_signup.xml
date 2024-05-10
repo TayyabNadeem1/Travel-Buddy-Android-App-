@@ -61,28 +61,32 @@
                 android:drawablePadding="8dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/edittext_bkg"/>
-            <LinearLayout
 
+            <FrameLayout
+                android:id="@+id/layoutImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_margin="10dp"
-                >
-                <ImageButton
-                    android:id="@+id/imageView"
+                android:layout_marginTop="10dp">
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/riProfilePic"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/camera"
-                    android:layout_margin="10dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/camera"
+                    android:scaleType="centerCrop"
+                    app:riv_oval="true"
                     />
                 <TextView
+                    android:id="@+id/tvAddImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Upload Image"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
+                    android:text="your_image_here"
                     android:textColor="@color/Lavender"
-                    android:textSize="20sp"/>
-            </LinearLayout>
+                    android:textSize="20dp"
+                    />
+            </FrameLayout>
 
             <Button
                 android:layout_width="300dp"

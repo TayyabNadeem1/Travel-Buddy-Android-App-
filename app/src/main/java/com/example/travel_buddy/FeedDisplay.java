@@ -40,6 +40,11 @@ public class FeedDisplay extends AppCompatActivity {
         rvFeed = findViewById(R.id.rvFeed);
         rvFeed.setHasFixedSize(true);
         rvFeed.setLayoutManager(new LinearLayoutManager(this));
+        String encodedImage = getIntent().getStringExtra("encodedImage");
+
+        Intent addPostIntent = new Intent(FeedDisplay.this, AddPost.class);
+        addPostIntent.putExtra("encodedImage", encodedImage);
+
 
         users = new ArrayList<>(); // Initialize the users ArrayList
 
@@ -83,9 +88,9 @@ public class FeedDisplay extends AppCompatActivity {
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FeedDisplay.this, AddPost.class);
-                startActivity(intent);
-                finish();
+
+                startActivity(addPostIntent);
+
             }
         });
 

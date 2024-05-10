@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "111474715493",
+    "project_id": "travel-buddy-df945",
+    "storage_bucket": "travel-buddy-df945.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:111474715493:android:359c3c1c5f2df8f355cf8c",
+        "android_client_info": {
+          "package_name": "com.example.travel_buddy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1oo9vPaZ86-nCWlpmxYshyUTh3wHb52Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
