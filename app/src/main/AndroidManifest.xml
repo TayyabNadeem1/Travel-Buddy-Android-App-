@@ -22,10 +22,10 @@
             android:name=".FeedDisplay"
             android:exported="false" />
         <activity
-            android:name=".FeedDesign"
+            android:name=".SignupActivity"
             android:exported="false" />
         <activity
-            android:name=".Feed"
+            android:name=".FeedAdapter"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

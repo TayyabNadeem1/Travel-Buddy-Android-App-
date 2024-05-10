@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -26,14 +27,16 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class AddPost extends AppCompatActivity {
 
@@ -44,6 +47,7 @@ public class AddPost extends AppCompatActivity {
     TextInputLayout name;
     private String encodedImage = "";
     private TextView tvAddImage;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,7 @@ public class AddPost extends AppCompatActivity {
         riProfilePic = findViewById(R.id.riProfilePic);
         layoutImage = findViewById(R.id.layoutImage);
         tvAddImage = findViewById(R.id.tvAddImage);
+        mAuth = FirebaseAuth.getInstance();
 
         final ActivityResultLauncher<Intent> pickImage = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -91,13 +96,10 @@ public class AddPost extends AppCompatActivity {
             }
         });
 
-
         etName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-
-                name.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.red)));
-
+                name.setHintTextColor(ColorStateList.valueOf(getResources().getColor(R.color.purple_200)));
             }
         });
 
@@ -109,47 +111,61 @@ public class AddPost extends AppCompatActivity {
             }
         });
 
-
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String bio = etBio.getText().toString().trim();
-                String name = etName.getText().toString().trim();
-                String source = etSource.getText().toString().trim();
-                String destination = etDestination.getText().toString().trim();
-
-                if (!bio.isEmpty() && !name.isEmpty() && !source.isEmpty() && !destination.isEmpty()) {
-                    HashMap<String, Object> data = new HashMap<>();
-                    data.put("Name", name);
-                    data.put("Bio", bio);
-                    data.put("Source", source);
-                    data.put("Destination", destination);
-                    data.put("Profile Picture", encodedImage);
-
-                    FirebaseDatabase
-                            .getInstance()
-                            .getReference()
-                            .child("Post")
-                            .push()
-                            .updateChildren(data)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    Toast.makeText(AddPost.this, "Note Added Successfully.", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(AddPost.this, MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(AddPost.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                }
+                savePost();
             }
         });
-
     }
+
+    private void savePost() {
+        String bio = Objects.requireNonNull(etBio.getText()).toString().trim();
+        String name = Objects.requireNonNull(etName.getText()).toString().trim();
+        String source = Objects.requireNonNull(etSource.getText()).toString().trim();
+        String destination = Objects.requireNonNull(etDestination.getText()).toString().trim();
+
+        if (!bio.isEmpty() && !name.isEmpty() && !source.isEmpty() && !destination.isEmpty()) {
+            FirebaseUser user = mAuth.getCurrentUser();
+            if (user != null) {
+                String userId = user.getUid();
+
+                HashMap<String, Object> data = new HashMap<>();
+                data.put("Name", name);
+                data.put("Bio", bio);
+                data.put("Source", source);
+                data.put("Destination", destination);
+                data.put("Profile Picture", encodedImage);
+                data.put("UserId", userId); // Add user's UID
+
+                FirebaseDatabase
+                        .getInstance()
+                        .getReference()
+                        .child("Users")
+                        .child("Post")
+                        .push()
+                        .updateChildren(data)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(AddPost.this, "Note Added Successfully.", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(AddPost.this, FeedDisplay.class); // Navigate back to FeedDisplay
+                                startActivity(intent);
+                                finish();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(AddPost.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            } else {
+                Toast.makeText(AddPost.this, "User not authenticated", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(AddPost.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

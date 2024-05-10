@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".LoginFragment">
+    tools:context=".SignupActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,22 +13,23 @@
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
+            android:gravity="center"
             android:layout_marginTop="20dp"
             android:padding="20dp">
 
             <ImageView
-                android:layout_width="200dp"
-
-                android:layout_height="200dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="20dp"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/login"/>
+                android:src="@drawable/signup"/>
             <EditText
                 android:layout_width="300dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:id="@+id/login_email"
+                android:id="@+id/signup_email"
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="Email"
@@ -40,7 +41,7 @@
                 android:layout_width="300dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:id="@+id/login_password"
+                android:id="@+id/signup_password"
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="password"
@@ -48,12 +49,41 @@
                 android:drawablePadding="8dp"
                 android:background="@drawable/edittext_bkg"/>
 
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:id="@+id/signup_confirm"
+                android:layout_marginTop="20dp"
+                android:padding="8dp"
+                android:hint="Confirm password"
+                android:drawableLeft="@drawable/ic_password"
+                android:drawablePadding="8dp"
+                android:background="@drawable/edittext_bkg"/>
 
             <Button
                 android:layout_width="300dp"
-                android:layout_height="70dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
+                android:id="@+id/btnSignup"
+                android:textSize="14sp"
+                android:text="Signup"
+                app:cornerRadius="30dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="----------------------OR-----------------------"
+                android:gravity="center"
+                android:textColor="@color/Lavender"
+                android:textStyle="bold"
+                />
+            <Button
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:id="@+id/btnLogin"
                 android:textSize="18sp"
                 android:text="Login"

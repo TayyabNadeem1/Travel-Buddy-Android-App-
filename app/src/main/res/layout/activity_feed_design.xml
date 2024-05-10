@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:layout_gravity="bottom"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="30dp">
                 <!-- Source Information -->
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -94,6 +94,7 @@
                         android:text="Source"
                         android:layout_margin="5dp"
                         android:textColor="@color/black"
+                        android:textStyle="bold"
                         android:padding="2dp" />
                 </LinearLayout>
 
@@ -113,6 +114,7 @@
                         android:layout_height="wrap_content"
                         android:text="Destination"
                         android:layout_margin="5dp"
+                        android:textStyle="bold"
                         android:textColor="@color/black"
                         android:padding="2dp" />
                 </LinearLayout>

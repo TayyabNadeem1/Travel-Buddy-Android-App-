@@ -2,80 +2,74 @@ package com.example.travel_buddy;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
-
-    private TabLayout tabLayout;
-    private ViewPager2 viewPager2;
-
-
-    Button btnLogin;
-
-    private ViewPagerAdapter adapter;
+    Button btnLogin, btnSignup;
+    EditText email, password;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
+        btnSignup = findViewById(R.id.btnSignup);
+        btnLogin = findViewById(R.id.btnLogin);
+        email = findViewById(R.id.login_email);
+        password = findViewById(R.id.login_password);
 
-        tabLayout =findViewById(R.id.tab_layout);
-        viewPager2 =findViewById(R.id.view_pager);
+        mAuth = FirebaseAuth.getInstance();
 
-        tabLayout.addTab(tabLayout.newTab().setText("Login"));
-        tabLayout.addTab(tabLayout.newTab().setText("Signup"));
-
-        FragmentManager fragmentManager= getSupportFragmentManager();
-        adapter = new ViewPagerAdapter(fragmentManager, getLifecycle());
-        viewPager2.setAdapter(adapter);
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager2.setCurrentItem(tab.getPosition());
-                Intent intent=new Intent(MainActivity.this, FeedDisplay.class);
-
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SignupActivity.class);
                 startActivity(intent);
-
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
+                finish();
             }
         });
 
-        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onPageSelected(int position){
-                tabLayout.selectTab(tabLayout.getTabAt(position));
+            public void onClick(View v) {
+                loginUser();
             }
-
-
         });
+    }
 
+    private void loginUser() {
+        String txt_email = email.getText().toString();
+        String txt_password = password.getText().toString();
+
+        if (TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)) {
+            Toast.makeText(MainActivity.this, "Email and password cannot be empty", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        mAuth.signInWithEmailAndPassword(txt_email, txt_password)
+                .addOnCompleteListener(new OnCompleteListener() {
+                    @Override
+                    public void onComplete(@NonNull Task task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MainActivity.this, FeedDisplay.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Login failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }

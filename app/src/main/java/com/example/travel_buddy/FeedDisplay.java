@@ -45,7 +45,7 @@ public class FeedDisplay extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
 
-        database.getReference().child("Post").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        database.getReference().child("Users").child("Post").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
