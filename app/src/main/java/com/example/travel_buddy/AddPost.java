@@ -4,12 +4,10 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -78,7 +76,7 @@ public class AddPost extends AppCompatActivity {
                                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                                     riProfilePic.setImageBitmap(bitmap);
                                     tvAddImage.setVisibility(View.GONE);
-                                    //encodedImage = FeedAdapter.encodeImage(bitmap);
+                                    encodedImage = encodeImage(bitmap);
                                 }
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
@@ -117,6 +115,16 @@ public class AddPost extends AppCompatActivity {
                 savePost();
             }
         });
+    }
+
+    private String encodeImage(Bitmap bitmap) {
+        int width = 150;
+        int height = bitmap.getHeight() * width / bitmap.getWidth();
+        Bitmap previewBitmap = Bitmap.createScaledBitmap(bitmap, width, height, false);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        previewBitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
 
     private void savePost() {

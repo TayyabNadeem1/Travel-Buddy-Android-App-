@@ -7,27 +7,31 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.makeramen.roundedimageview.RoundedImageView;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder> implements Filterable {
 
-    private ArrayList<User> users;
-    private ArrayList<User> usersFull; // This will contain the full list of users
+    private final ArrayList<User> users;
+    private final ArrayList<User> usersFull; // This will contain the full list of users
 
     // Constructor
     public FeedAdapter(ArrayList<User> users) {
         this.users = users;
         this.usersFull = new ArrayList<>(users); // Copy the original list
     }
+
+
 
     @NonNull
     @Override
@@ -44,12 +48,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
         holder.tvSource.setText(user.getSource());
         holder.tvDestination.setText(user.getDestination());
         holder.tvBio.setText(user.getBio());
-
+        holder.ivPFP.setImageBitmap(user.getPfp());
         holder.itemView.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(),R.anim.anim_one ));
 
         // Decode and set image
-        Bitmap decodedImage = getUserImage(String.valueOf(user.getPfp()));
-        holder.ivPFP.setImageBitmap(decodedImage);
+//        Bitmap decodedImage = getUserImage(String.valueOf(user.getPfp()));
+
     }
 
     @Override
@@ -68,7 +72,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
         return userFilter;
     }
 
-    private Filter userFilter = new Filter() {
+    private final Filter userFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             List<User> filteredList = new ArrayList<>();
