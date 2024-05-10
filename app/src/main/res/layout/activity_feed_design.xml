@@ -29,7 +29,7 @@
 
                 <!-- User Profile Image -->
                 <androidx.cardview.widget.CardView
-                    android:layout_width="150dp"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
                     app:cardCornerRadius="28dp"
@@ -37,7 +37,7 @@
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/ivPFP"
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
+                        android:layout_height="140dp"
                         android:scaleType="centerCrop"
                          />
                 </androidx.cardview.widget.CardView>
@@ -120,15 +120,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content">-->
-<!--                <ImageView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="25dp"-->
-<!--                    android:src="@drawable/dotted_line"/>-->
-
-<!--            </LinearLayout>-->
 
         </LinearLayout>
 

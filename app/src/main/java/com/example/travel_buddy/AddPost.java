@@ -78,7 +78,7 @@ public class AddPost extends AppCompatActivity {
                                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                                     riProfilePic.setImageBitmap(bitmap);
                                     tvAddImage.setVisibility(View.GONE);
-                                    encodedImage = FeedAdapter.encodeImage(bitmap);
+                                    //encodedImage = FeedAdapter.encodeImage(bitmap);
                                 }
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
