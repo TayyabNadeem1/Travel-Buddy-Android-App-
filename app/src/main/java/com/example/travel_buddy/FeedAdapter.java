@@ -1,7 +1,10 @@
 package com.example.travel_buddy;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,7 +13,10 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,7 +47,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PostViewHolder holder, @SuppressLint("RecyclerView") int position) {
         User user = users.get(position);
 
         holder.tvName.setText(user.getName());
@@ -49,10 +55,26 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
         holder.tvDestination.setText(user.getDestination());
         holder.tvBio.setText(user.getBio());
         holder.ivPFP.setImageBitmap(user.getPfp());
+        holder.tvConnect.setText(user.getPhone());
         holder.itemView.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(),R.anim.anim_one ));
 
-        // Decode and set image
-//        Bitmap decodedImage = getUserImage(String.valueOf(user.getPfp()));
+        holder.llConnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                User user = users.get(position);
+                String phoneNumber = user.getPhone();
+                Log.d("FeedAdapter", "Phone number: " + phoneNumber);
+                if (phoneNumber != null && !phoneNumber.isEmpty()) {
+                    Intent intent=new Intent(Intent.ACTION_VIEW,Uri.parse("sms:"+user.getPhone()));
+                    holder.itemView.getContext().startActivity(intent);
+
+                } else {
+
+                    Toast.makeText(holder.itemView.getContext(), "Phone number not available", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
 
@@ -110,15 +132,22 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
 
 
     public static class PostViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName, tvBio, tvDate, tvSource, tvDestination;
+        TextView tvName, tvBio, tvDate, tvSource, tvDestination, tvConnect;
         RoundedImageView ivPFP;
+        ImageView ivConnect;
+        LinearLayout llConnect;
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvName);
             tvBio = itemView.findViewById(R.id.tvBio);
             tvSource = itemView.findViewById(R.id.tvSource);
             tvDestination = itemView.findViewById(R.id.tvDestination);
+            tvConnect = itemView.findViewById(R.id.tvConnect);
+            ivConnect = itemView.findViewById(R.id.ivConnect);
+            llConnect = itemView.findViewById(R.id.llConnect);
             ivPFP = itemView.findViewById(R.id.ivPFP);
         }
+
+
     }
 }

@@ -16,8 +16,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center"
-            android:layout_marginTop="20dp"
-            android:padding="20dp">
+            android:padding="30dp">
 
             <ImageView
                 android:layout_width="150dp"
@@ -44,7 +43,7 @@
                 android:id="@+id/signup_password"
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
-                android:hint="password"
+                android:hint="Password"
                 android:drawableLeft="@drawable/ic_password"
                 android:drawablePadding="8dp"
                 android:background="@drawable/edittext_bkg"/>
@@ -53,26 +52,37 @@
                 android:layout_width="300dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:id="@+id/signup_confirm"
+                android:id="@+id/signup_username"
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
-                android:hint="Confirm password"
+                android:hint="Username"
                 android:drawableLeft="@drawable/ic_password"
                 android:drawablePadding="8dp"
-                android:layout_marginBottom="20dp"
+                android:background="@drawable/edittext_bkg"/>
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:id="@+id/signup_phone"
+                android:layout_marginTop="20dp"
+                android:padding="8dp"
+                android:hint="Phone"
+                android:drawableLeft="@drawable/ic_password"
+                android:drawablePadding="8dp"
+                android:layout_marginBottom="15dp"
                 android:background="@drawable/edittext_bkg"/>
 
             <FrameLayout
                 android:id="@+id/layoutImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="5dp"
                 android:layout_marginTop="10dp">
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/riProfilePic"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginRight="15dp"
                     android:background="@drawable/camera"
                     android:scaleType="centerCrop"
                     app:riv_oval="true"
@@ -84,6 +94,7 @@
                     android:layout_gravity="center"
                     android:text="your_image_here"
                     android:textColor="@color/Lavender"
+                    android:layout_marginLeft="25dp"
                     android:textSize="20dp"
                     />
             </FrameLayout>
@@ -92,7 +103,7 @@
                 android:layout_width="300dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:id="@+id/btnSignup"
                 android:textSize="14sp"
                 android:text="Signup"
@@ -100,7 +111,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:text="----------------------OR-----------------------"
                 android:gravity="center"
                 android:textColor="@color/Lavender"
@@ -110,7 +121,7 @@
                 android:layout_width="300dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:id="@+id/btnLogin"
                 android:textSize="18sp"
                 android:text="Login"

@@ -59,26 +59,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-        if (dataSnapshot.exists()) {
-            String profilePictureUrl = dataSnapshot.child("Profile Picture").getValue(String.class);
-
-            if (profilePictureUrl != null && !profilePictureUrl.isEmpty()) {
-                // Navigate to FeedDisplay activity
-                Intent intent = new Intent(MainActivity.this, FeedDisplay.class);
-                intent.putExtra("profilePictureUrl", profilePictureUrl);
-                startActivity(intent);
-                finish();
-            } else {
-                // Handle the case when profile picture URL is empty
-                Toast.makeText(MainActivity.this, "Profile picture URL not found", Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            // Handle the case when the user data for the current user is not found
-            Toast.makeText(MainActivity.this, "User data not found", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     private void loginUser() {
         String txt_email = email.getText().toString();
         String txt_password = password.getText().toString();
@@ -117,12 +97,20 @@ public class MainActivity extends AppCompatActivity {
 
                                                 } else {
                                                     // Profile picture URL not found for the user
-                                                    Toast.makeText(MainActivity.this, "Profile picture URL not found", Toast.LENGTH_SHORT).show();
+//                                                    Toast.makeText(MainActivity.this, "Profile picture URL not found", Toast.LENGTH_SHORT).show();
+                                                    Intent intent = new Intent(MainActivity.this, FeedDisplay.class);
+                                                    intent.putExtra("profilePictureUrl", profilePictureUrl);
+                                                    startActivity(intent);
+                                                    finish();
                                                 }
                                             }
-                                        } else {
+                                        } else if(task.isSuccessful()){
                                             // User ID not found in "Post" node
-                                            Toast.makeText(MainActivity.this, "User ID not found in 'Post' node", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(MainActivity.this, FeedDisplay.class);
+                                            intent.putExtra("profilePictureUrl", profilePictureUrl);
+                                            startActivity(intent);
+                                            finish();
+//                                            Toast.makeText(MainActivity.this, "User ID not found in 'Post' node", Toast.LENGTH_SHORT).show();
                                         }
                                     }
 

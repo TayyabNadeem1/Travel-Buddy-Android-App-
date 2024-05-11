@@ -11,7 +11,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="60dp"
         android:text="NEW POST"
         android:gravity="center|top"
         android:textSize="25sp"
@@ -65,6 +65,7 @@
             android:id="@+id/etSource"
             />
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -80,7 +81,48 @@
             />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Phone"
+        android:hint="Enter Phone Number"
+        app:boxStrokeColor="#F96767"
+        android:layout_marginBottom="10dp"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etPhone"
+            android:inputType="phone" />
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
+    <FrameLayout
+        android:id="@+id/layoutImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginTop="10dp">
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/riProfilePic"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/camera"
+            android:scaleType="centerCrop"
+            app:riv_oval="true"
+            />
+        <TextView
+            android:id="@+id/tvAddImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="your_image_here"
+            android:textColor="@color/Lavender"
+            android:layout_marginLeft="25dp"
+            android:textSize="20dp"
+            />
+    </FrameLayout>
 
     <Button
         android:layout_width="match_parent"

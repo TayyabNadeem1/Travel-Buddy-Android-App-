@@ -2,13 +2,26 @@ package com.example.travel_buddy;
 
 import android.graphics.Bitmap;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private int userid;
     private String Name;
     private String Email;
     private String Password;
     private String Source;
     private String Destination;
+
+    private String Phone;
+
+    public String getPhone() {
+        return Phone;
+    }
+
+    public void setPhone(String phone) {
+        Phone = phone;
+    }
+
     private String Bio;
     private Bitmap pfp; // Bitmap for the profile image
 
@@ -16,9 +29,9 @@ public class User {
         // Default constructor required for Firebase
     }
 
-    public User(String name, String source, String destination, String bio, Bitmap pfp) {
+    public User(String name, String source, String destination, String bio, Bitmap pfp, String phone) {
         this.Name = name;
-
+        this.Phone = phone;
         this.Source = source;
         this.Destination = destination;
         this.Bio = bio;

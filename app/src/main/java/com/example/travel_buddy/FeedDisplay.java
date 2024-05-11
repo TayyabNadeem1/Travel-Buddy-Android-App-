@@ -5,7 +5,10 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -26,6 +29,9 @@ import java.util.ArrayList;
 public class FeedDisplay extends AppCompatActivity {
 
     RecyclerView rvFeed;
+    LinearLayout llConnect;
+    ImageView ivConnect;
+    TextView tvConnect;
     ArrayList<User> users;
     FeedAdapter adapter;
     FloatingActionButton fabProfile, fabAdd;
@@ -38,11 +44,26 @@ public class FeedDisplay extends AppCompatActivity {
 
         fabAdd = findViewById(R.id.fabAdd);
         fabProfile = findViewById(R.id.fabProfile);
+//        llConnect = findViewById(R.id.llConnect);
+//        ivConnect = findViewById(R.id.ivConnect);
+//        tvConnect = findViewById(R.id.tvConnect);
+
+//        llConnect.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse("sms:"+phoneNumber.getText()));
+////                itemView.getContext().startActivity(intent);
+//            }
+//        });
+
         rvFeed = findViewById(R.id.rvFeed);
         rvFeed.setHasFixedSize(true);
         rvFeed.setLayoutManager(new LinearLayoutManager(this));
         String encodedImage = getIntent().getStringExtra("encodedImage");
         String profilePictureUrl = getIntent().getStringExtra("profilePictureUrl");
+
+        Log.d(encodedImage,"encodedImage");
+        Log.d(profilePictureUrl,"profilePictureUrl");
 
         Intent addPostIntent = new Intent(FeedDisplay.this, AddPost.class);
         Intent addPostIntentThruLogin = new Intent(FeedDisplay.this, AddPost.class);
@@ -72,10 +93,22 @@ public class FeedDisplay extends AppCompatActivity {
                 }
             });
         } else {
+            addPostIntentThruLogin.putExtra("profilePictureUrl", profilePictureUrl);
+            fabAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    startActivity(addPostIntentThruLogin);
+                    //Log.d(profilePictureUrl,"profilePictureUrl");
+                    finish();
+                }
+            });
             // Handle the case when both encodedImage and profilePictureUrl are empty
             // For example, show a toast or log a message
             Toast.makeText(FeedDisplay.this, "No profile picture available", Toast.LENGTH_SHORT).show();
         }
+
+
 
         users = new ArrayList<>(); // Initialize the users ArrayList
 
@@ -89,11 +122,12 @@ public class FeedDisplay extends AppCompatActivity {
                         String source = String.valueOf(snapshot.child("Source").getValue());
                         String bio = String.valueOf(snapshot.child("Bio").getValue());
                         String destination = String.valueOf(snapshot.child("Destination").getValue());
+                        String phone = String.valueOf(snapshot.child("Phone").getValue());
                         String encodedImage = String.valueOf(snapshot.child("Profile Picture").getValue());
 
                         Bitmap decodedImage = FeedAdapter.getUserImage(encodedImage);
 
-                        User user = new User(name, source, destination, bio, decodedImage);
+                        User user = new User(name, source, destination, bio, decodedImage,phone);
 
                         users.add(user);
                     }

@@ -33,7 +33,7 @@ import java.io.InputStream;
 public class SignupActivity extends AppCompatActivity {
 
     private Button btnLogin, btnSignup;
-    private EditText email, password;
+    private EditText email, password, name, phone;
     private ProgressDialog pd;
     private FirebaseAuth mAuth;
     private String encodedImage = "";
@@ -51,6 +51,8 @@ public class SignupActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         email = findViewById(R.id.signup_email);
         password = findViewById(R.id.signup_password);
+//        name = findViewById(R.id.signup_username);
+//        phone = findViewById(R.id.signup_phone);
 
         mAuth = FirebaseAuth.getInstance();
         pd = new ProgressDialog(this);
