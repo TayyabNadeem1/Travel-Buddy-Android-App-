@@ -3,6 +3,7 @@ package com.example.travel_buddy;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ public class AddPost extends AppCompatActivity {
     TextInputEditText etName, etBio, etSource, etDestination;
     TextInputLayout name;
     public String encodedImage = "";
+    public String profilePictureUrl = "";
     private TextView tvAddImage;
     private FirebaseAuth mAuth;
 
@@ -47,8 +49,18 @@ public class AddPost extends AppCompatActivity {
         btnSave = findViewById(R.id.btnSave);
         btnCancel = findViewById(R.id.btnCancel);
 
+
         encodedImage = getIntent().getStringExtra("encodedImage");
-        setEncodedImage(encodedImage);
+        profilePictureUrl = getIntent().getStringExtra("profilePictureUrl");
+        if(encodedImage != null){
+            setEncodedImage(encodedImage);
+            Log.d(encodedImage,"encodedImage");
+        } else if (profilePictureUrl != null) {
+            setEncodedImage(profilePictureUrl);
+            Log.d(profilePictureUrl,"profilePictureUrl");
+        }
+
+
         mAuth = FirebaseAuth.getInstance();
 
 
@@ -64,6 +76,7 @@ public class AddPost extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(AddPost.this, FeedDisplay.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -95,7 +108,12 @@ public class AddPost extends AppCompatActivity {
                 data.put("Bio", bio);
                 data.put("Source", source);
                 data.put("Destination", destination);
-                data.put("Profile Picture", encodedImage);
+                if(encodedImage != null){
+                    data.put("Profile Picture", encodedImage);
+                } else if (profilePictureUrl != null) {
+                    data.put("Profile Picture", profilePictureUrl);
+                }
+
                 data.put("UserId", userId); // Add user's UID
 
                 FirebaseDatabase

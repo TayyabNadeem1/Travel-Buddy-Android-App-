@@ -136,6 +136,7 @@ public class SignupActivity extends AppCompatActivity {
                             Intent intent = new Intent(SignupActivity.this, FeedDisplay.class);
                             intent.putExtra("encodedImage", encodedImage);
                             startActivity(intent);
+                            finish();
                         } else {
                             Toast.makeText(SignupActivity.this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }

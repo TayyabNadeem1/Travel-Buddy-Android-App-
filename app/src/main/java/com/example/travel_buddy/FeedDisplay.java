@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -41,10 +42,40 @@ public class FeedDisplay extends AppCompatActivity {
         rvFeed.setHasFixedSize(true);
         rvFeed.setLayoutManager(new LinearLayoutManager(this));
         String encodedImage = getIntent().getStringExtra("encodedImage");
+        String profilePictureUrl = getIntent().getStringExtra("profilePictureUrl");
 
         Intent addPostIntent = new Intent(FeedDisplay.this, AddPost.class);
-        addPostIntent.putExtra("encodedImage", encodedImage);
+        Intent addPostIntentThruLogin = new Intent(FeedDisplay.this, AddPost.class);
 
+        if (encodedImage != null && !encodedImage.isEmpty()) {
+            addPostIntent.putExtra("encodedImage", encodedImage);
+
+            fabAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    startActivity(addPostIntent);
+                    //Log.d(encodedImage,"encodedImage");
+                    finish();
+                }
+            });
+        } else if (profilePictureUrl != null && !profilePictureUrl.isEmpty()) {
+            addPostIntentThruLogin.putExtra("profilePictureUrl", profilePictureUrl);
+
+            fabAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    startActivity(addPostIntentThruLogin);
+                    //Log.d(profilePictureUrl,"profilePictureUrl");
+                    finish();
+                }
+            });
+        } else {
+            // Handle the case when both encodedImage and profilePictureUrl are empty
+            // For example, show a toast or log a message
+            Toast.makeText(FeedDisplay.this, "No profile picture available", Toast.LENGTH_SHORT).show();
+        }
 
         users = new ArrayList<>(); // Initialize the users ArrayList
 
@@ -85,14 +116,7 @@ public class FeedDisplay extends AppCompatActivity {
             }
         });
 
-        fabAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                startActivity(addPostIntent);
-
-            }
-        });
 
         SearchView searchView = findViewById(R.id.searchView);
 
