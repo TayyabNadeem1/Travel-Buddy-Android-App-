@@ -11,20 +11,13 @@ public class User implements Serializable {
     private String Password;
     private String Source;
     private String Destination;
-
+    private String Gender;
+    private String Age;
+    private String DOB;
+    private String About;
     private String Phone;
-
-    public String getPhone() {
-        return Phone;
-    }
-
-    public void setPhone(String phone) {
-        Phone = phone;
-    }
-
     private String Bio;
     private Bitmap pfp; // Bitmap for the profile image
-
     public User() {
         // Default constructor required for Firebase
     }
@@ -36,6 +29,20 @@ public class User implements Serializable {
         this.Destination = destination;
         this.Bio = bio;
         this.pfp = pfp;
+    }
+
+    public User(int userid, String email, String password) {
+        this.userid = userid;
+        this.Email = email;
+        this.Password = password;
+
+    }
+    public String getPhone() {
+        return Phone;
+    }
+
+    public void setPhone(String phone) {
+        Phone = phone;
     }
     public int getUserid() {
         return userid;
@@ -60,14 +67,6 @@ public class User implements Serializable {
     public void setPassword(String password) {
         Password = password;
     }
-
-    public User(int userid, String email, String password) {
-        this.userid = userid;
-        this.Email = email;
-        this.Password = password;
-
-    }
-
     public String getBio() {
         return Bio;
     }
@@ -75,22 +74,12 @@ public class User implements Serializable {
     public void setBio(String bio) {
         this.Bio = bio;
     }
-
-//
-//    public int getId() {
-//        //return id;
-//    }
-
     public Bitmap getPfp() {
         return pfp;
     }
 
     public void setPfp(Bitmap pfp) {
         this.pfp = pfp;
-    }
-
-    public void setId(int id) {
-        //this.id = id;
     }
 
     public String getName() {
@@ -100,14 +89,6 @@ public class User implements Serializable {
     public void setName(String name) {
         this.Name = name;
     }
-
-//    public String getPassword() {
-//      //  return password;
-//    }
-
-//    public void setPassword(String password) {
-//       // this.password = password;
-//    }
 
     public String getSource() {
         return Source;
@@ -124,15 +105,36 @@ public class User implements Serializable {
     public void setDestination(String destination) {
         this.Destination = destination;
     }
+    public String getGender() {
+        return Gender;
+    }
 
-//    public int getLikes() {
-//    // return likes;
-//    }
-//
-//    public void setLikes(int likes) {
-//      //  this.likes = likes;
-//    }
-//
-//
-//}
+    public void setGender(String gender) {
+        Gender = gender;
+    }
+
+    public String getAge() {
+        return Age;
+    }
+
+    public void setAge(String age) {
+        Age = age;
+    }
+
+    public String getDOB() {
+        return DOB;
+    }
+
+    public void setDOB(String DOB) {
+        this.DOB = DOB;
+    }
+
+    public String getAbout() {
+        return About;
+    }
+
+    public void setAbout(String about) {
+        About = about;
+    }
+
 }

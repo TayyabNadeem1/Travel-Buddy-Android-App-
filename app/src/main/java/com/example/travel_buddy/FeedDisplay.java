@@ -124,14 +124,29 @@ public class FeedDisplay extends AppCompatActivity {
             }
         });
 
-        fabProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FeedDisplay.this, ProfileActivity.class);
-                startActivity(intent);
+        Intent ProfileIntent = new Intent(FeedDisplay.this, ProfileActivity.class);
+        Intent ProfileIntentThruLogin = new Intent(FeedDisplay.this, ProfileActivity.class);
 
-            }
-        });
+        if (encodedImage != null && !encodedImage.isEmpty()) {
+            ProfileIntent.putExtra("encodedImage", encodedImage);
+
+            fabProfile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(ProfileIntent);
+                }
+            });
+        } else if (profilePictureUrl != null && !profilePictureUrl.isEmpty()) {
+            ProfileIntentThruLogin.putExtra("profilePictureUrl", profilePictureUrl);
+
+            fabProfile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(ProfileIntentThruLogin);
+                }
+            });
+        }
+
 
 
 
