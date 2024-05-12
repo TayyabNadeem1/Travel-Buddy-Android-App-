@@ -46,31 +46,32 @@
                 android:hint="Password"
                 android:drawableLeft="@drawable/ic_password"
                 android:drawablePadding="8dp"
-                android:background="@drawable/edittext_bkg"/>
+                android:background="@drawable/edittext_bkg"
+                android:layout_marginBottom="20dp"/>
 
-            <EditText
-                android:layout_width="300dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:id="@+id/signup_username"
-                android:layout_marginTop="20dp"
-                android:padding="8dp"
-                android:hint="Username"
-                android:drawableLeft="@drawable/ic_password"
-                android:drawablePadding="8dp"
-                android:background="@drawable/edittext_bkg"/>
-            <EditText
-                android:layout_width="300dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:id="@+id/signup_phone"
-                android:layout_marginTop="20dp"
-                android:padding="8dp"
-                android:hint="Phone"
-                android:drawableLeft="@drawable/ic_password"
-                android:drawablePadding="8dp"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/edittext_bkg"/>
+<!--            <EditText-->
+<!--                android:layout_width="300dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:id="@+id/signup_username"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:padding="8dp"-->
+<!--                android:hint="Username"-->
+<!--                android:drawableLeft="@drawable/ic_password"-->
+<!--                android:drawablePadding="8dp"-->
+<!--                android:background="@drawable/edittext_bkg"/>-->
+<!--            <EditText-->
+<!--                android:layout_width="300dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:id="@+id/signup_phone"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:padding="8dp"-->
+<!--                android:hint="Phone"-->
+<!--                android:drawableLeft="@drawable/ic_password"-->
+<!--                android:drawablePadding="8dp"-->
+<!--                android:layout_marginBottom="15dp"-->
+<!--                android:background="@drawable/edittext_bkg"/>-->
 
             <FrameLayout
                 android:id="@+id/layoutImage"
@@ -123,7 +124,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
                 android:id="@+id/btnLogin"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:text="Login"
                 app:cornerRadius="30dp"/>
 

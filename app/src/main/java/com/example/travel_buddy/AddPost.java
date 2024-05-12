@@ -165,7 +165,10 @@ public class AddPost extends AppCompatActivity {
         String source = Objects.requireNonNull(etSource.getText()).toString().trim();
         String destination = Objects.requireNonNull(etDestination.getText()).toString().trim();
         String phone = Objects.requireNonNull(etPhone.getText()).toString().trim();
-
+        if (!isValidPhoneNumber(phone)) {
+            Toast.makeText(AddPost.this, "Please enter a valid phone number", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (!bio.isEmpty() && !name.isEmpty() && !source.isEmpty() && !destination.isEmpty()&& !phone.isEmpty()) {
             FirebaseUser user = mAuth.getCurrentUser();
             if (user != null) {
@@ -181,14 +184,12 @@ public class AddPost extends AppCompatActivity {
                     data.put("Destination", destination);
                     data.put("Phone", phone);
 
-                    // Add profile picture if layoutImage is visible
-                    if (layoutImage.getVisibility() == View.VISIBLE) {
                         if (encodedImage != null) {
                             data.put("Profile Picture", encodedImage);
                         } else if (profilePictureUrl != null) {
                             data.put("Profile Picture", profilePictureUrl);
                         }
-                    }
+
 
                     data.put("UserId", userId); // Add user's UID
 
@@ -221,6 +222,11 @@ public class AddPost extends AppCompatActivity {
         } else {
             Toast.makeText(AddPost.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
         }
+    }
+    private boolean isValidPhoneNumber(String phoneNumber) {
+
+        String phonePattern = "^[0-9]{11}$";
+        return phoneNumber.matches(phonePattern);
     }
 
 }

@@ -5,10 +5,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -29,9 +26,6 @@ import java.util.ArrayList;
 public class FeedDisplay extends AppCompatActivity {
 
     RecyclerView rvFeed;
-    LinearLayout llConnect;
-    ImageView ivConnect;
-    TextView tvConnect;
     ArrayList<User> users;
     FeedAdapter adapter;
     FloatingActionButton fabProfile, fabAdd;
@@ -44,17 +38,6 @@ public class FeedDisplay extends AppCompatActivity {
 
         fabAdd = findViewById(R.id.fabAdd);
         fabProfile = findViewById(R.id.fabProfile);
-//        llConnect = findViewById(R.id.llConnect);
-//        ivConnect = findViewById(R.id.ivConnect);
-//        tvConnect = findViewById(R.id.tvConnect);
-
-//        llConnect.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse("sms:"+phoneNumber.getText()));
-////                itemView.getContext().startActivity(intent);
-//            }
-//        });
 
         rvFeed = findViewById(R.id.rvFeed);
         rvFeed.setHasFixedSize(true);

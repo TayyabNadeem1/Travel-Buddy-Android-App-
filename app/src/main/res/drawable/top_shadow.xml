@@ -1,6 +1,15 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <gradient
-        android:startColor="#E6000000"
-        android:endColor="#00000000"
-        android:angle="20" />
-</shape>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background shape with gradient -->
+    <item>
+        <shape android:shape="rectangle">
+            <!-- Add your gradient background here -->
+
+        </shape>
+    </item>
+    <!-- Picture with reduced alpha -->
+    <item>
+        <bitmap
+            android:src="@drawable/map2"
+            android:alpha=".2" />
+    </item>
+</layer-list>

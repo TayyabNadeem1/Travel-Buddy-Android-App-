@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -120,8 +121,8 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void registerUser(final String email, final String password) {
-        if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(SignupActivity.this, "Email and password cannot be empty", Toast.LENGTH_SHORT).show();
+        if (email.isEmpty() || password.isEmpty() || encodedImage.isEmpty()) {
+            Toast.makeText(SignupActivity.this, "Please fill in all fields and upload a picture", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -137,6 +138,7 @@ public class SignupActivity extends AppCompatActivity {
                             Toast.makeText(SignupActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(SignupActivity.this, FeedDisplay.class);
                             intent.putExtra("encodedImage", encodedImage);
+                            Log.d(encodedImage,"encodedImage");
                             startActivity(intent);
                             finish();
                         } else {

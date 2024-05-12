@@ -55,7 +55,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
         holder.tvDestination.setText(user.getDestination());
         holder.tvBio.setText(user.getBio());
         holder.ivPFP.setImageBitmap(user.getPfp());
-        holder.tvConnect.setText(user.getPhone());
+        //holder.tvConnect.setText(user.getPhone());
         holder.itemView.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(),R.anim.anim_one ));
 
         holder.llConnect.setOnClickListener(new View.OnClickListener() {
@@ -108,10 +108,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
 
                 // Iterate through the full list and add matching items to filteredList
                 for (User user : usersFull) {
-                    String name = user.getName().toLowerCase();
-                    Log.d("Filter", "Name from Database: " + name); // Log the name fetched from the database
+                    String destination = user.getDestination().toLowerCase();
+                    Log.d("Filter", "Name from Database: " + destination); // Log the name fetched from the database
 
-                    if (name.contains(filterPattern)) {
+                    if (destination.contains(filterPattern)) {
                         filteredList.add(user);
                     }
                 }
