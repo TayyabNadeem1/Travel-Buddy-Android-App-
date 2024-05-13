@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -28,6 +29,8 @@ public class FeedDisplay extends AppCompatActivity {
     RecyclerView rvFeed;
     ArrayList<User> users;
     FeedAdapter adapter;
+
+    Button btnExplore;
     FloatingActionButton fabProfile, fabAdd;
 
     @Override
@@ -38,15 +41,15 @@ public class FeedDisplay extends AppCompatActivity {
 
         fabAdd = findViewById(R.id.fabAdd);
         fabProfile = findViewById(R.id.fabProfile);
-
+        btnExplore = findViewById(R.id.btnExplore);
         rvFeed = findViewById(R.id.rvFeed);
         rvFeed.setHasFixedSize(true);
         rvFeed.setLayoutManager(new LinearLayoutManager(this));
         String encodedImage = getIntent().getStringExtra("encodedImage");
         String profilePictureUrl = getIntent().getStringExtra("profilePictureUrl");
 
-        Log.d(encodedImage,"encodedImage");
-        Log.d(profilePictureUrl,"profilePictureUrl");
+//        Log.d(encodedImage,"encodedImage");
+//        Log.d(profilePictureUrl,"profilePictureUrl");
 
         Intent addPostIntent = new Intent(FeedDisplay.this, AddPost.class);
         Intent addPostIntentThruLogin = new Intent(FeedDisplay.this, AddPost.class);
@@ -126,13 +129,15 @@ public class FeedDisplay extends AppCompatActivity {
 
         Intent ProfileIntent = new Intent(FeedDisplay.this, ProfileActivity.class);
         Intent ProfileIntentThruLogin = new Intent(FeedDisplay.this, ProfileActivity.class);
-
+        Log.d(encodedImage,"encodedImage");
+        Log.d(profilePictureUrl,"profilePictureUrl");
         if (encodedImage != null && !encodedImage.isEmpty()) {
             ProfileIntent.putExtra("encodedImage", encodedImage);
 
             fabProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.d(encodedImage,"encodedImage");
                     startActivity(ProfileIntent);
                 }
             });
@@ -142,11 +147,20 @@ public class FeedDisplay extends AppCompatActivity {
             fabProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.d(profilePictureUrl,"profilePictureUrl");
                     startActivity(ProfileIntentThruLogin);
                 }
             });
         }
 
+        btnExplore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FeedDisplay.this, MapsActivity.class);
+                startActivity(intent);
+
+            }
+        });
 
 
 

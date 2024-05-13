@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    private int userid;
+    private int Userid;
     private String Name;
     private String Email;
     private String Password;
@@ -30,9 +30,16 @@ public class User implements Serializable {
         this.Bio = bio;
         this.pfp = pfp;
     }
+    public User(String Name, String Source, String Destination, String Bio, String Phone) {
+        this.Name = Name;
+        this.Phone = Phone;
+        this.Source = Source;
+        this.Destination = Destination;
+        this.Bio = Bio;
+    }
 
     public User(int userid, String email, String password) {
-        this.userid = userid;
+        this.Userid = userid;
         this.Email = email;
         this.Password = password;
 
@@ -45,11 +52,11 @@ public class User implements Serializable {
         Phone = phone;
     }
     public int getUserid() {
-        return userid;
+        return Userid;
     }
 
     public void setUserid(int userid) {
-        this.userid = userid;
+        this.Userid = userid;
     }
 
     public String getEmail() {

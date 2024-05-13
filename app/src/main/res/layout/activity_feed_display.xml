@@ -30,6 +30,30 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+    <!-- Guideline to center the button -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vertical_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.34" />
+
+    <!-- Button centered between fabAdd and fabProfile -->
+
+    <Button
+        android:id="@+id/btnExplore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Explore!"
+        android:textSize="22sp"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/light_purple"
+        app:layout_constraintBottom_toBottomOf="@id/fabAdd"
+        app:layout_constraintStart_toStartOf="@id/guideline_vertical_center"
+        app:layout_constraintTop_toTopOf="@id/fabAdd"
+        app:layout_constraintVertical_bias="0.0" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabProfile"
         android:layout_width="wrap_content"
@@ -43,14 +67,13 @@
     <SearchView
         android:id="@+id/searchView"
         android:layout_width="0dp"
-
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="16dp"
         android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
         android:queryHint="Search where you wanna go.."
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:queryBackground="@null" />

@@ -61,6 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvpnumber = findViewById(R.id.tvpnumber);
         tvabout = findViewById(R.id.tvabout);
         ivpp = findViewById(R.id.ivpp);
+        String cuser="";
 
         encodedImage = getIntent().getStringExtra("encodedImage");
         profilePictureUrl = getIntent().getStringExtra("profilePictureUrl");
@@ -68,7 +69,6 @@ public class ProfileActivity extends AppCompatActivity {
         Log.d(encodedImage,"encodedImage");
         Log.d(profilePictureUrl,"profilePictureUrl");
 
-        String cuser="";
 
         fabedit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +82,6 @@ public class ProfileActivity extends AppCompatActivity {
                 AlertDialog dialog = builder.create();
                 dialog.show();
 
-
                 TextInputEditText editDob, editAbout,editAge,editPhone,editName;
                 AutoCompleteTextView editGender;
                 editDob=dialog.findViewById(R.id.editDob);
@@ -91,7 +90,6 @@ public class ProfileActivity extends AppCompatActivity {
                 editAge=dialog.findViewById(R.id.editAge);
                 editPhone=dialog.findViewById(R.id.editPhone);
                 editName=dialog.findViewById(R.id.editName);
-
                 Button saveButton = dialog.findViewById(R.id.saveButton);
                 String[] genderOptions = getResources().getStringArray(R.array.gender_array);
 
@@ -112,19 +110,17 @@ public class ProfileActivity extends AppCompatActivity {
                 {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+
                         if (dataSnapshot.exists()) {
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 String userId = snapshot.child("UserId").getValue(String.class);
                                 if (userId != null && userId.equals(mAuth.getCurrentUser().getUid())) {
-                                    editName.setText(dataSnapshot.child("Name").getValue(String.class));
-                                    editPhone.setText(dataSnapshot.child("Phone").getValue(String.class));
-                                    editAge.setText(dataSnapshot.child("Age").getValue(String.class));
-                                    editGender.setText(dataSnapshot.child("Gender").getValue(String.class), false);
-                                    editAbout.setText(dataSnapshot.child("About").getValue(String.class));
-                                    editDob.setText(dataSnapshot.child("DOB").getValue(String.class));
-                                    //profilePictureUrl = snapshot.child("Profile Picture").getValue(String.class);
-
-
+                                    editName.setText(snapshot.child("Name").getValue(String.class));
+                                    editPhone.setText(snapshot.child("Phone").getValue(String.class));
+                                    editAge.setText(snapshot.child("Age").getValue(String.class));
+                                    editGender.setText(snapshot.child("Gender").getValue(String.class), false);
+                                    editAbout.setText(snapshot.child("About").getValue(String.class));
+                                    editDob.setText(snapshot.child("DOB").getValue(String.class));
 
                                     break; // assuming you only need one match
                                 }
@@ -139,55 +135,59 @@ public class ProfileActivity extends AppCompatActivity {
                 });
 
 
-                assert saveButton != null;
+
                 saveButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        databaseReference.orderByChild("UserId").equalTo(mAuth.getCurrentUser().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if (dataSnapshot.exists()) {
-                                    String postId = ""; // Initialize postId
-                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                        postId = snapshot.getKey();
-                                        User user = snapshot.getValue(User.class); // Assuming you have a User class mapped to the fields
-                                        if (user != null) {
-                                            editName.setText(user.getName());
-                                            editPhone.setText(user.getPhone());
-                                            editAge.setText(user.getAge() != null ? String.valueOf(user.getAge()) : "");
-                                            editGender.setText(user.getGender(), false);
-                                            editAbout.setText(user.getAbout());
-                                            editDob.setText(user.getDOB());
+                        if (mAuth.getCurrentUser() != null) {
+                            String currentUserID = mAuth.getCurrentUser().getUid();
+                            databaseReference.orderByChild("UserId").equalTo(currentUserID).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                    if (dataSnapshot.exists()) {
+                                        String postId = "";
+                                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                            postId = snapshot.getKey(); // Assume there's only one matching post
+                                            break;
                                         }
-                                        break; // Assuming there's only one unique post per user ID
+
+                                        if (!postId.isEmpty()) {
+                                            Map<String, Object> userUpdates = new HashMap<>();
+                                            userUpdates.put("Name", editName.getText().toString());
+                                            userUpdates.put("Phone", editPhone.getText().toString());
+                                            userUpdates.put("Age", editAge.getText().toString());
+                                            userUpdates.put("Gender", editGender.getText().toString());
+                                            userUpdates.put("About", editAbout.getText().toString());
+                                            userUpdates.put("DOB", editDob.getText().toString());
+
+                                            databaseReference.child(postId).updateChildren(userUpdates)
+                                                    .addOnSuccessListener(aVoid -> {
+                                                        Toast.makeText(ProfileActivity.this, "Profile updated successfully!", Toast.LENGTH_SHORT).show();
+                                                        // Immediately update the UI to reflect changes
+                                                        tvpname.setText(editName.getText().toString());
+                                                        tvEmail.setText(editPhone.getText().toString()); // Assuming this should show phone
+                                                        tvgender.setText(editGender.getText().toString());
+                                                        tvage.setText(editAge.getText().toString());
+//                                                      tvdob.setText(editDob.getText().toString());
+                                                        tvdob.setText(editDob.getText().toString());
+                                                        tvpnumber.setText(editPhone.getText().toString());
+                                                        tvabout.setText(editAbout.getText().toString());
+                                                        dialog.dismiss();
+                                                    })
+                                                    .addOnFailureListener(e -> Toast.makeText(ProfileActivity.this, "Failed to update profile: " + e.getMessage(), Toast.LENGTH_LONG).show());
+                                        }
+                                    } else {
+                                        Toast.makeText(ProfileActivity.this, "No matching user post found", Toast.LENGTH_SHORT).show();
                                     }
-
-                                    final String finalPostId = postId;
-                                    saveButton.setOnClickListener(v -> {
-                                        // Now update the Firebase with new data
-                                        Map<String, Object> userUpdates = new HashMap<>();
-                                        userUpdates.put("Name", editName.getText().toString());
-                                        userUpdates.put("Phone", editPhone.getText().toString());
-                                        userUpdates.put("Age", editAge.getText().toString());
-                                        userUpdates.put("Gender", editGender.getText().toString());
-                                        userUpdates.put("About", editAbout.getText().toString());
-                                        userUpdates.put("DOB", editDob.getText().toString());
-
-                                        databaseReference.child(finalPostId).updateChildren(userUpdates)
-                                                .addOnSuccessListener(aVoid -> Toast.makeText(ProfileActivity.this, "Profile updated successfully!", Toast.LENGTH_SHORT).show())
-                                                .addOnFailureListener(e -> Toast.makeText(ProfileActivity.this, "Failed to update profile: " + e.getMessage(), Toast.LENGTH_LONG).show());
-                                    });
-                                } else {
-                                    Toast.makeText(ProfileActivity.this, "No matching user post found", Toast.LENGTH_SHORT).show();
                                 }
-                            }
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                                Toast.makeText(ProfileActivity.this, "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    Toast.makeText(ProfileActivity.this, "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
                     }
                 });
 
@@ -223,16 +223,23 @@ public class ProfileActivity extends AppCompatActivity {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                String name="";
+                String phone="";
+                String age="";
+                String gender="";
+                String about="";
+                String dob="";
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         String userId = snapshot.child("UserId").getValue(String.class);
                         if (userId != null && userId.equals(mAuth.getCurrentUser().getUid())) {
-                            String name = snapshot.child("Name").getValue(String.class);
-                            String phone = snapshot.child("Phone").getValue(String.class);
-                            String age = snapshot.child("Age").getValue(String.class);
-                            String about = snapshot.child("About").getValue(String.class);
-                            String gender = snapshot.child("Gender").getValue(String.class);
-                            String dob = snapshot.child("Dob").getValue(String.class);
+                            name = snapshot.child("Name").getValue(String.class);
+                            phone= snapshot.child("Phone").getValue(String.class);
+                            age= snapshot.child("Age").getValue(String.class);
+                            about= snapshot.child("About").getValue(String.class);
+                            gender= snapshot.child("Gender").getValue(String.class);
+                            dob= snapshot.child("Dob").getValue(String.class);
                             String sivpp = ""; // Initialize with empty string
                             if (encodedImage != null) {
                                 sivpp = encodedImage;
@@ -244,9 +251,22 @@ public class ProfileActivity extends AppCompatActivity {
                             break; // Assuming you only need one match
                         }
                     }
+                    if (name == null) {
+                        Toast.makeText(ProfileActivity.this, "ProfileActivity Name is null", Toast.LENGTH_SHORT).show();
+                    }
+                    ivpp = findViewById(R.id.ivpp);
+//                ivpp.setImageResource();
+
+                    tvpname.setText(name);
+                    tvEmail.setText(mAuth.getCurrentUser().getEmail());
+                    tvgender.setText(gender);
+                    tvage.setText(age);
+                    tvdob.setText(dob);
+                    tvpnumber.setText(phone);
+                    tvabout.setText(about);
+                    // Repeat for other fields
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.d("DatabaseError", databaseError.getMessage());
@@ -274,7 +294,4 @@ public class ProfileActivity extends AppCompatActivity {
             ivpp.setImageBitmap(bitmap);
         }
     }
-
-
-
 }
