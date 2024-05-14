@@ -32,7 +32,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="50dp"
+                app:cardCornerRadius="10dp"
                 android:layout_marginTop="20dp">
 
                 <LinearLayout
@@ -41,14 +41,35 @@
                     android:orientation="vertical"
                     android:layout_marginTop="0dp"
                     android:padding="15dp">
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:layout_width="200dp"
-                        android:layout_height="200dp"
+                    <FrameLayout
+                        android:id="@+id/pplayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
                         android:layout_gravity="center"
-                        android:id="@+id/ivpp"
-                        android:src="@drawable/login"
-                        app:cardCornerRadius="30dp" />
+                        android:layout_marginTop="10dp">
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            android:id="@+id/ivpp"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_marginRight="5dp"
+                            android:scaleType="centerCrop"
+                            app:riv_oval="true"
+                            android:background="@drawable/camera"
+
+                            />
+
+
+
+
+                    </FrameLayout>
+
+                    <!--                    <com.google.android.material.imageview.ShapeableImageView-->
+                    <!--                        android:layout_width="150dp"-->
+                    <!--                        android:layout_height="150dp"-->
+                    <!--                        android:layout_gravity="center"-->
+                    <!--                        android:id="@+id/ivpp"-->
+                    <!--                        android:src="@drawable/login"/>-->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -75,7 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                app:cardCornerRadius="30dp">
+                app:cardCornerRadius="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -116,7 +137,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                app:cardCornerRadius="30dp">
+                app:cardCornerRadius="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -225,7 +246,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
-                            android:text="date of birth"
+                            android:text="Country"
                             android:textSize="15sp"
                             android:layout_alignParentStart="true"
                             android:textStyle="bold"/>
@@ -234,7 +255,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="#6E6C6C"
                             android:text=""
-                            android:id="@+id/tvdob"
+                            android:id="@+id/tvcountry"
 
                             android:textSize="15sp"
                             android:layout_alignParentEnd="true"
@@ -281,11 +302,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="20dp"
+        android:layout_margin="16dp"
         android:src="@drawable/ic_edit"
         app:fabSize="normal"
 
-        app:backgroundTint="@color/light_purple"
+        app:backgroundTint="@color/Lavender"
         />
 
 </FrameLayout>

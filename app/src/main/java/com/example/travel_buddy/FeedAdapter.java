@@ -22,7 +22,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
@@ -63,25 +62,25 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.PostViewHolder
 
         mAuth = FirebaseAuth.getInstance();
         // Set click listener for the profile picture
-        holder.ivPFP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create an intent to navigate to PostProfileActivity
-
-                Intent intent = new Intent(holder.itemView.getContext(), PostProfile.class);
-
-                FirebaseUser currentUser = mAuth.getCurrentUser();
-                String userId;
-
-                userId = currentUser.getUid();
-
-                // Pass the user ID of the user who posted the feed post as an intent extra
-                intent.putExtra("userId", userId);
-
-                // Start the activity
-                holder.itemView.getContext().startActivity(intent);
-            }
-        });
+//        holder.ivPFP.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Create an intent to navigate to PostProfileActivity
+//
+//                Intent intent = new Intent(holder.itemView.getContext(), PostProfile.class);
+//
+//                FirebaseUser currentUser = mAuth.getCurrentUser();
+//                String userId;
+//
+//                userId = currentUser.getUid();
+//
+//                // Pass the user ID of the user who posted the feed post as an intent extra
+//                intent.putExtra("userId", userId);
+//
+//                // Start the activity
+//                holder.itemView.getContext().startActivity(intent);
+//            }
+//        });
 
 
 
