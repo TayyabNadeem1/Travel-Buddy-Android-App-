@@ -44,5 +44,5 @@ Contributions are welcome! Open an issue or submit a pull request if you have su
 📬 Contact
 Tayyab Nadeem
 📧 tayyabnadeem3037@gmail.com
-🔗 LinkedIn
-💻 GitHub
+🔗 [LinkedIn](https://www.linkedin.com/in/tayyab-nadeem-9aa425244/)  
+💻 [GitHub](https://github.com/TayyabNadeem1)
